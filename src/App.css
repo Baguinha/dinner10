@@ -1,0 +1,81 @@
+.App {
+     background-color: rgb(78, 73, 73);
+
+     margin: 0;
+     /* padding: 0; */
+     /* backgroundposition: 'center'; */
+     /* backgroundrepeat: 'no-repeat';
+     backgroundsize: 'cover'; */
+     /* height: 100vh;
+     width: 100vw; */
+}
+
+.tableContainer {
+     display: flex;
+     padding: 10px;
+     margin: 5px;
+     align-items: center;
+     border-radius: 10px;
+     justify-content: space-between;
+}
+
+.orderListContainer {
+     /* display: flex; */
+     padding: 10px;
+     margin: 5px;
+     align-items: center;
+     border-radius: 10px;
+     /* justify-content: space-between; */
+}
+
+.orderDetailsContainer {
+     color: '#414141';
+     font-weight: 600;
+     padding: 'padding: 0px 20px 0px 20px;';
+     display: 'flex';
+     align-items: 'center';
+}
+
+.tableDetailsContainer {
+     display: flex;
+     margin: auto;
+}
+
+.tablesHeader {
+     display: flex;
+     padding: 5px;
+     margin: auto;
+     /* color: gray; */
+}
+
+.form-modal {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     /* border: 2px solid grey; */
+     box-shadow: 24;
+     padding: 10px;
+     border-radius: 225px;
+     text-align: center;
+     height: auto;
+     width: auto;
+}
+
+.form-item {
+     padding: 20px;
+
+     /* display: inline; */
+}
+.form-btn {
+     /* align-items: center; */
+     /* text-align: center; */
+     display: grid;
+
+     padding: 20px;
+}
+
+.form-title {
+     padding: 20px;
+     /* text-align: center; */
+}
