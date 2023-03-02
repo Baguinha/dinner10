@@ -11,8 +11,10 @@ import {
      TextField,
      Typography,
 } from '@mui/material';
+import TableRestaurantIcon from '@mui/icons-material/TableRestaurant';
 import React, { useEffect } from 'react';
 import { ITable } from '../types';
+import { Group } from '@mui/icons-material';
 
 interface ITableAddModalProps {
      onSave: (
@@ -29,6 +31,14 @@ export const TableAddModal = (props: ITableAddModalProps) => {
      const [tableNum, setTableNum] = React.useState(0);
      const [seatsAvNum, setSeatsAvNum] = React.useState(0);
      const [seatsOcNum, setSeatsOcNum] = React.useState(0);
+     const [isValid, setIsValid] = React.useState(false);
+
+     useEffect(() => {
+          if (tableNum > 0 && seatsAvNum > 0) setIsValid(true);
+          else {
+               setIsValid(false);
+          }
+     }, [tableNum, seatsAvNum]);
 
      useEffect(() => {
           setOpen(props.isOpen);
@@ -58,6 +68,11 @@ export const TableAddModal = (props: ITableAddModalProps) => {
                     <Divider />
 
                     <div className="form-item">
+                         <TableRestaurantIcon
+                              style={{ padding: '15px' }}
+                              fontSize="medium"
+                              color="action"
+                         />
                          <TextField
                               color="secondary"
                               id="table-num"
@@ -69,6 +84,11 @@ export const TableAddModal = (props: ITableAddModalProps) => {
                          />
                     </div>
                     <div className="form-item">
+                         <Group
+                              style={{ padding: '15px' }}
+                              fontSize="medium"
+                              color="action"
+                         />
                          <TextField
                               color="secondary"
                               id="seats-num"
@@ -81,6 +101,7 @@ export const TableAddModal = (props: ITableAddModalProps) => {
                     </div>
                     <div className="form-btn">
                          <Button
+                              disabled={!isValid}
                               color="secondary"
                               variant="contained"
                               onClick={() => {

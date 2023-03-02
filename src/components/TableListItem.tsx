@@ -99,7 +99,7 @@ export const TableListItem = (props: ITableListItemProps) => {
                     <GroupRemove color="action" style={{ cursor: 'pointer' }} />
                </IconButton>
                <IconButton
-                    disabled={props.table.clients === 0 ? true : false}
+                    disabled={!props.table.clients}
                     aria-label="ReceiptLong"
                     onClick={(e) => {
                          props.onShowOrderList(props.table.num);
@@ -110,13 +110,13 @@ export const TableListItem = (props: ITableListItemProps) => {
                     <ReceiptLong style={{ cursor: 'pointer' }} />
                </IconButton>
                <IconButton
-                    disabled={props.table.clients === 0 ? false : true}
-                    aria-label="delete"
+                    disabled={!!props.table.clients}
+                    aria-label="Delete"
                     onClick={() => {
                          props.onDelete(props.table.num);
                     }}
                >
-                    <Delete color="action" style={{ cursor: 'pointer' }} />
+                    <Delete style={{ cursor: 'pointer' }} />
                </IconButton>
           </Box>
      );

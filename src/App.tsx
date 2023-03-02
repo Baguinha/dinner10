@@ -21,24 +21,24 @@ const initialTables: ITable[] = [
           seatsAvailable: 2,
           clients: 1,
           order: [
-               {
-                    product: {
-                         id: 0,
-                         type: 'prato-principal',
-                         price: 7,
-                         name: 'Cozido das furnas',
-                    },
-                    quantity: 2,
-               },
-               {
-                    product: {
-                         id: 1,
-                         type: 'sobremesa',
-                         price: 4,
-                         name: 'Malassadas',
-                    },
-                    quantity: 1,
-               },
+               // {
+               //      product: {
+               //           id: 0,
+               //           type: 'prato-principal',
+               //           price: 7,
+               //           name: 'Cozido das furnas',
+               //      },
+               //      quantity: 2,
+               // },
+               // {
+               //      product: {
+               //           id: 1,
+               //           type: 'sobremesa',
+               //           price: 4,
+               //           name: 'Malassadas',
+               //      },
+               //      quantity: 1,
+               // },
           ],
      },
 ];
@@ -122,7 +122,6 @@ function App() {
                }
                return table;
           });
-          console.log(newTableList);
           setTables(newTableList);
      };
      const deleteClient = (selectedTable: number) => {
@@ -148,15 +147,11 @@ function App() {
      };
 
      const onAddProduct = () => {
-          // console.log(productAddOrderModal);
           setOrderAddModalIsOpen(true);
-          // setProductAddOrderModal(productAddOrderModal);
      };
      const onCloseOrderList = () => {
           setTableDetails(undefined);
      };
-
-     console.log(tableDetails);
 
      const updateOrder = (newOrder: IOrder[]) => {
           const newTableList = tables.map((table) => {
@@ -178,7 +173,6 @@ function App() {
 
      return (
           <ThemeProvider theme={IsDarkTheme ? lightTheme : darkTheme}>
-               {/* <div className="App"> */}
                <Paper
                     sx={{
                          height: '100vh',
@@ -202,7 +196,6 @@ function App() {
                          </Typography>
                          <IconButton
                               onClick={() => {
-                                   console.log(IsDarkTheme);
                                    setIsDarkTheme(!IsDarkTheme);
                               }}
                          >
@@ -246,12 +239,9 @@ function App() {
                          }}
                          onSave={(newOrder) => {
                               updateOrder(newOrder);
-
-                              // console.log('app', order);
                          }}
                     />
                </Paper>
-               {/* </div> */}
           </ThemeProvider>
      );
 }

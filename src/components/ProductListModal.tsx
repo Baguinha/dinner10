@@ -1,16 +1,10 @@
-import { Group, LocalDining } from '@mui/icons-material';
+import { AttachMoney, LocalDining } from '@mui/icons-material';
 
 import {
-     Box,
      Button,
      Divider,
-     FormControl,
-     IconButton,
-     InputLabel,
-     MenuItem,
      Modal,
      Paper,
-     Select,
      TextField,
      Typography,
 } from '@mui/material';
@@ -28,21 +22,32 @@ interface IProductListModalProps {
 export const ProductListModal = (props: IProductListModalProps) => {
      const [open, setOpen] = React.useState(false);
      const [order, setOrder] = React.useState<IOrder[]>(props?.order);
+     const [isValid, setIsValid] = React.useState(false);
+     const [total, setTotal] = React.useState(0);
 
      useEffect(() => {
           setOpen(props.isOpen);
      }, [props.isOpen]);
-     console.log('%%%%', props.order);
 
-     // useEffect(() => {
-     //      const newthing = order.filter(
-     //           (orderItem) => orderItem.quantity !== 0
-     //      );
-     //      console.log('new', newthing);
-     //      setOrder(newthing);
-     //      console.log('order', order);
-     //      console.log('props', props.order);
-     // }, [props.order]);
+     useEffect(() => {
+          setOrder(props.order);
+     }, [props.order]);
+
+     useEffect(() => {
+          const t = order
+               .map((element) => element.product.price * element.quantity)
+               .reduce((a, b) => a + b, 0);
+          setTotal(t);
+     }, [order]);
+
+     useEffect(() => {
+          order.find((element) => {
+               if (element.quantity > 0) setIsValid(true);
+               else {
+                    setIsValid(false);
+               }
+          });
+     }, [order]);
 
      const onAddOrder = (quantity: number, productId: number) => {
           // If order already exist
@@ -103,14 +108,13 @@ export const ProductListModal = (props: IProductListModalProps) => {
                          { product: foundProductOnMenu, quantity: quantity },
                     ]);
           }
-          // console.log(order);
-          // const newthing = order.filter(
-          //      (orderItem) => orderItem.quantity !== 0
-          // );
+     };
 
-          // setOrder(newthing);
-          // console.log('%%%5', newthing);
-          // console.log(order);
+     const fillDefaultQnt = (productId: number) => {
+          const orderItem = order.find(
+               (order) => order.product.id === productId
+          );
+          return orderItem ? orderItem.quantity : 0;
      };
 
      return (
@@ -163,7 +167,27 @@ export const ProductListModal = (props: IProductListModalProps) => {
                                         />
                                         {product.name}
                                    </Typography>
+                                   <Typography
+                                        style={{
+                                             display: 'flex',
+                                             alignItems: 'center',
+                                             minWidth: '150px',
+                                        }}
+                                        variant="body1"
+                                        color={'secondary'}
+                                   >
+                                        <AttachMoney
+                                             color={'secondary'}
+                                             style={{
+                                                  padding: '10px',
+                                             }}
+                                        />
+                                        {product.price}
+                                   </Typography>
                                    <TextField
+                                        defaultValue={fillDefaultQnt(
+                                             product.id
+                                        )}
                                         color={'secondary'}
                                         sx={{ m: 1, width: '100px' }}
                                         size="small"
@@ -182,21 +206,32 @@ export const ProductListModal = (props: IProductListModalProps) => {
                               </div>
                          ))}
                     </div>
+                    <div>
+                         <Typography
+                              style={{
+                                   display: 'flex',
+                                   alignItems: 'center',
+                                   justifyContent: 'center',
+                                   padding: '20px',
+                              }}
+                              color="secondary"
+                              variant="h4"
+                         >
+                              {`Total: ${total}`}
+                              <AttachMoney
+                                   color={'secondary'}
+                                   fontSize="large"
+                              />
+                         </Typography>
+                    </div>
 
                     <div className="form-btn">
                          <Button
+                              disabled={!isValid}
                               color="secondary"
                               variant="contained"
                               onClick={() => {
-                                   // props.onSave(
-                                   //      tableNum,
-                                   //      seatsAvNum,
-                                   //      seatsOcNum
-                                   // );
-                                   // props.onClose();
                                    props.onSave(order);
-                                   console.log('onclick Save');
-                                   // console.log(order);
                               }}
                          >
                               Save
